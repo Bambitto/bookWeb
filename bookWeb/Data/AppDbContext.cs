@@ -12,6 +12,7 @@ namespace bookWebApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Review
             modelBuilder.Entity<Review>()
                 .HasOne(b => b.Book)
                 .WithMany(r => r.Reviews)
@@ -25,6 +26,14 @@ namespace bookWebApi.Data
             modelBuilder.Entity<Review>()
                 .Property(x => x.Comment).HasMaxLength(512);
 
+            #endregion
+
+
+            #region Book
+            modelBuilder.Entity<Book>()
+                .HasOne(g => g.Genre)
+                .WithMany(r => r.Books)
+                .HasForeignKey(g => g.GenreId);
 
             modelBuilder.Entity<Book>()
                 .Property(x => x.Title).IsRequired().HasMaxLength(64);
@@ -36,9 +45,12 @@ namespace bookWebApi.Data
                 .Property(x => x.Description).HasMaxLength(512);
 
             modelBuilder.Entity<Book>()
-                .Property(x => x.Genre).IsRequired();
+                .Property(x => x.GenreId).IsRequired();
+
+            #endregion
 
 
+            #region User
             modelBuilder.Entity<User>()
                 .Property(x => x.Email).IsRequired().HasMaxLength(64);
 
@@ -51,6 +63,7 @@ namespace bookWebApi.Data
             modelBuilder.Entity<User>()
                 .Property(x => x.Password).IsRequired();
 
+            #endregion
         }
     }
 }

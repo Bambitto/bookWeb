@@ -3,13 +3,14 @@
     public class Book
     {
         public Guid Id { get; set; }
-        public string Title { get; set; } = default!;
-        public string Author { get; set; } = default!;
-        public string Genre { get; set; } = default!;
+        public required string Title { get; set; }
+        public required string Author { get; set; }
+        public Guid GenreId { get; set; }
         public string? Description { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
 
         public List<Review> Reviews { get; set; }
+        public Genre Genre { get; set; }
     }
 }
