@@ -4,6 +4,7 @@ using FastEndpoints.Swagger;
 using bookWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Public.GetBooks;
+using bookWebApi.Repository;
 
 var builder = WebApplication.CreateBuilder();
 builder.Services.AddFastEndpoints()
@@ -12,7 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("BookWebDB"));
 });
-builder.Services.AddScoped<Data>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();

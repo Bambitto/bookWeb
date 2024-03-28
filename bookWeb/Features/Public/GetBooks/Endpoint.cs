@@ -1,8 +1,15 @@
-﻿namespace Public.GetBooks
+﻿using bookWebApi.Repository;
+
+namespace Public.GetBooks
 {
-    internal sealed class Endpoint(Data data) : EndpointWithoutRequest<Response>
+    internal sealed class Endpoint : EndpointWithoutRequest<Response>
     {
-        private readonly Data _data = data;
+        private readonly IBookRepository _repo;
+
+        public Endpoint(IBookRepository repo)
+        {
+            _repo = repo;
+        }
 
         public override void Configure()
         {
@@ -12,7 +19,13 @@
 
         public override async Task HandleAsync(CancellationToken c)
         {
-            var books = await _data.GetBooks();
+            var books = await _repo.GetAllBooks();
+
+            if(books is null || !books.Any())
+            {
+                await SendNoContentAsync(c);
+            }
+
 
             var response = new Response()
             { 
