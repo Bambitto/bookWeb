@@ -9,6 +9,7 @@ namespace bookWebApi.Data
         public DbSet<Book> Books => Set<Book>();
         public DbSet<Review> Reviews => Set<Review>();
         public DbSet<User> Users => Set<User>();
+        public DbSet<Genre> Genres => Set<Genre>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +25,9 @@ namespace bookWebApi.Data
                 .HasForeignKey(u => u.UserId);
 
             modelBuilder.Entity<Review>()
+                .ToTable("Review");
+
+            modelBuilder.Entity<Review>()
                 .Property(x => x.Comment).HasMaxLength(512);
 
             #endregion
@@ -34,6 +38,9 @@ namespace bookWebApi.Data
                 .HasOne(g => g.Genre)
                 .WithMany(r => r.Books)
                 .HasForeignKey(g => g.GenreId);
+
+            modelBuilder.Entity<Book>()
+                .ToTable("Book");
 
             modelBuilder.Entity<Book>()
                 .Property(x => x.Title).IsRequired().HasMaxLength(64);
@@ -52,6 +59,9 @@ namespace bookWebApi.Data
 
             #region User
             modelBuilder.Entity<User>()
+                .ToTable("User");
+
+            modelBuilder.Entity<User>()
                 .Property(x => x.Email).IsRequired().HasMaxLength(64);
 
             modelBuilder.Entity<User>()
@@ -64,6 +74,9 @@ namespace bookWebApi.Data
                 .Property(x => x.Password).IsRequired();
 
             #endregion
+
+            modelBuilder.Entity<Genre>()
+                .ToTable("Genres");
         }
     }
 }
