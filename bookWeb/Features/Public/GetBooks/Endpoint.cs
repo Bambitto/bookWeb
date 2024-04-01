@@ -21,27 +21,33 @@ namespace Public.GetBooks
         {
             var books = await _repo.GetAllBooks();
 
-            if(books is null || !books.Any())
+            if (books is null || !books.Any())
             {
                 await SendNoContentAsync(c);
             }
 
-
-            var response = new Response()
-            { 
-                Books = books.Select(x => new bookWebApi.Entities.Book
+            else
+            {
+                var response = new Response()
                 {
-                    Id = x.Id,
-                    Author = x.Author,
-                    Title = x.Title,
-                    Description = x.Description,
-                    Genre = x.Genre,
-                    CreatedDate = x.CreatedDate,
-                    UpdatedDate = x.UpdatedDate,
-                })
-            };
+                    Books = books.Select(x => new ResponseEntity
+                    {
+                        Id = x.Id,
+                        Author = x.Author,
+                        Title = x.Title,
+                        Description = x.Description,
+                        GenreId = x.GenreId,
+                        Genre = x.Genre.Name,
+                        CreatedDate = x.CreatedDate,
+                        UpdatedDate = x.UpdatedDate,
+                        Reviews = x.Reviews
+                    })
+                };
+                await SendOkAsync(response, c);
+                return;
+            }
 
-            await SendOkAsync(response, c);
+            await SendStringAsync("something went wrong", 400, cancellation: c);
         }
     }
 }

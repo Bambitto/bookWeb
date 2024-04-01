@@ -27,7 +27,11 @@ namespace bookWebApi.Repository
 
         public async Task<IEnumerable<Book>> GetAllBooks()
         {
-            return await _context.Books.ToListAsync();
+
+            return await _context.Books
+                .Include(book => book.Genre)
+                .Include(book => book.Reviews)
+                .ToListAsync();
         }
 
         public async Task<Book?> GetBook(Guid id)

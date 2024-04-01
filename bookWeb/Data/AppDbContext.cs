@@ -13,11 +13,15 @@ namespace bookWebApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var Genre1 = Guid.NewGuid();
+            var Genre2 = Guid.NewGuid();
+            var Book1 = Guid.NewGuid();
+            var Book2 = Guid.NewGuid();
+            var User1 = Guid.NewGuid();
+
+
+
             #region Review
-            modelBuilder.Entity<Review>()
-                .HasOne(b => b.Book)
-                .WithMany(r => r.Reviews)
-                .HasForeignKey(b => b.BookId);
             
             modelBuilder.Entity<Review>()
                 .HasOne(u => u.User)
@@ -38,6 +42,11 @@ namespace bookWebApi.Data
                 .HasOne(g => g.Genre)
                 .WithMany(r => r.Books)
                 .HasForeignKey(g => g.GenreId);
+
+            modelBuilder.Entity<Book>()
+                .HasMany(r => r.Reviews)
+                .WithOne()
+                .HasForeignKey(r => r.BookId);
 
             modelBuilder.Entity<Book>()
                 .ToTable("Book");
@@ -75,8 +84,39 @@ namespace bookWebApi.Data
 
             #endregion
 
+
+            #region Genre
             modelBuilder.Entity<Genre>()
                 .ToTable("Genres");
+
+            modelBuilder.Entity<Genre>()
+                .HasData(
+                new Genre { Id = Genre1, Name = "Komedia" },
+                new Genre { Id = Genre2, Name = "Kryminał" }
+                );
+            #endregion
+
+
+            #region TestData
+
+            modelBuilder.Entity<User>()
+                .HasData(
+                new User { Id = User1, Email = "test@test.com", FirstName = "Test", LastName = "Test", Password = "test123" }
+                );
+
+            modelBuilder.Entity<Book>()
+                .HasData(
+                new Book { Author = "Test", Title = "Test", CreatedDate = DateTime.Now, Description = "test", GenreId = Genre1, Id = Book1, UpdatedDate = DateTime.Now},
+                new Book { Author = "Test2", Title = "Test2", CreatedDate = DateTime.Now, Description = "test2", GenreId = Genre2, Id = Book2, UpdatedDate = DateTime.Now }
+                );
+
+            modelBuilder.Entity<Review>()
+                .HasData(
+                new Review { Id = Guid.NewGuid(), BookId = Book1, Score = 4, Comment = "test", UserId = User1 },
+                new Review { Id = Guid.NewGuid(), BookId = Book2, Score = 5, Comment = "test", UserId = User1 }
+                );
+            
+            #endregion
         }
     }
 }

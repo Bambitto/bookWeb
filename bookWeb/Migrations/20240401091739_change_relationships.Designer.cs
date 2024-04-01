@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using bookWebApi.Data;
 
@@ -11,9 +12,11 @@ using bookWebApi.Data;
 namespace bookWebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240401091739_change_relationships")]
+    partial class change_relationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,23 +63,13 @@ namespace bookWebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("43bee7aa-bd10-406e-a501-009701b25822"),
+                            Id = new Guid("10cd7a5d-445f-4410-89e7-4c849f674d9b"),
                             Author = "Test",
-                            CreatedDate = new DateTime(2024, 4, 1, 11, 27, 17, 31, DateTimeKind.Local).AddTicks(5496),
+                            CreatedDate = new DateTime(2024, 4, 1, 11, 17, 39, 379, DateTimeKind.Local).AddTicks(4234),
                             Description = "test",
-                            GenreId = new Guid("17320e59-c5dc-427a-80fc-22e73e353961"),
+                            GenreId = new Guid("5c6ab8d7-1ebe-4855-bf94-d442f1d31f3d"),
                             Title = "Test",
-                            UpdatedDate = new DateTime(2024, 4, 1, 11, 27, 17, 31, DateTimeKind.Local).AddTicks(5548)
-                        },
-                        new
-                        {
-                            Id = new Guid("08465f3f-f45b-4766-9d30-2efe280c1961"),
-                            Author = "Test2",
-                            CreatedDate = new DateTime(2024, 4, 1, 11, 27, 17, 31, DateTimeKind.Local).AddTicks(5550),
-                            Description = "test2",
-                            GenreId = new Guid("f4b085dc-f486-4069-acc0-ba8c9dc1fb8b"),
-                            Title = "Test2",
-                            UpdatedDate = new DateTime(2024, 4, 1, 11, 27, 17, 31, DateTimeKind.Local).AddTicks(5552)
+                            UpdatedDate = new DateTime(2024, 4, 1, 11, 17, 39, 379, DateTimeKind.Local).AddTicks(4311)
                         });
                 });
 
@@ -97,12 +90,12 @@ namespace bookWebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("17320e59-c5dc-427a-80fc-22e73e353961"),
+                            Id = new Guid("5c6ab8d7-1ebe-4855-bf94-d442f1d31f3d"),
                             Name = "Komedia"
                         },
                         new
                         {
-                            Id = new Guid("f4b085dc-f486-4069-acc0-ba8c9dc1fb8b"),
+                            Id = new Guid("038a14c8-e246-452e-8990-241af8d17dc0"),
                             Name = "Kryminał"
                         });
                 });
@@ -120,8 +113,8 @@ namespace bookWebApi.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)");
 
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
+                    b.Property<double>("Score")
+                        .HasColumnType("float");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -133,24 +126,6 @@ namespace bookWebApi.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Review", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("41d7f06c-966d-4fae-80a1-28813879900c"),
-                            BookId = new Guid("43bee7aa-bd10-406e-a501-009701b25822"),
-                            Comment = "test",
-                            Score = 4,
-                            UserId = new Guid("a4c47528-e04d-4817-a520-854564fe190a")
-                        },
-                        new
-                        {
-                            Id = new Guid("27ff0714-2929-41eb-a0c6-bb7a33b2fb1a"),
-                            BookId = new Guid("08465f3f-f45b-4766-9d30-2efe280c1961"),
-                            Comment = "test",
-                            Score = 5,
-                            UserId = new Guid("a4c47528-e04d-4817-a520-854564fe190a")
-                        });
                 });
 
             modelBuilder.Entity("bookWebApi.Entities.User", b =>
@@ -180,16 +155,6 @@ namespace bookWebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a4c47528-e04d-4817-a520-854564fe190a"),
-                            Email = "test@test.com",
-                            FirstName = "Test",
-                            LastName = "Test",
-                            Password = "test123"
-                        });
                 });
 
             modelBuilder.Entity("bookWebApi.Entities.Book", b =>
