@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService", "..\BookService\BookService.csproj", "{1B72465C-CBFE-4220-BA50-DA886C96D721}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "..\IdentityService\IdentityService\IdentityService.csproj", "{DA810A11-F0D1-452D-B921-335882DE6D06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewService", "..\ReviewService\ReviewService.csproj", "{2153368A-C0FD-493E-A517-4F29C943E482}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{55FAA882-8914-4371-A79C-291458886F71}"
+	ProjectSection(SolutionItems) = preProject
+		..\K8S\book-depl.yaml = ..\K8S\book-depl.yaml
+		..\K8S\book-np-srv.yaml = ..\K8S\book-np-srv.yaml
+		..\K8S\ingress-srv.yaml = ..\K8S\ingress-srv.yaml
+		..\K8S\local-pvc.yaml = ..\K8S\local-pvc.yaml
+		..\K8S\mssql-book-depl.yaml = ..\K8S\mssql-book-depl.yaml
+		..\K8S\rabbitmq-depl.yaml = ..\K8S\rabbitmq-depl.yaml
+		..\K8S\review-depl.yaml = ..\K8S\review-depl.yaml
+	EndProjectSection
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "WebPage", "WebPage\WebPage.esproj", "{84DD8250-5B21-4510-90EE-A7534A1A1B4E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B72465C-CBFE-4220-BA50-DA886C96D721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B72465C-CBFE-4220-BA50-DA886C96D721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B72465C-CBFE-4220-BA50-DA886C96D721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B72465C-CBFE-4220-BA50-DA886C96D721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA810A11-F0D1-452D-B921-335882DE6D06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA810A11-F0D1-452D-B921-335882DE6D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA810A11-F0D1-452D-B921-335882DE6D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA810A11-F0D1-452D-B921-335882DE6D06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2153368A-C0FD-493E-A517-4F29C943E482}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2153368A-C0FD-493E-A517-4F29C943E482}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2153368A-C0FD-493E-A517-4F29C943E482}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2153368A-C0FD-493E-A517-4F29C943E482}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84DD8250-5B21-4510-90EE-A7534A1A1B4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84DD8250-5B21-4510-90EE-A7534A1A1B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84DD8250-5B21-4510-90EE-A7534A1A1B4E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{84DD8250-5B21-4510-90EE-A7534A1A1B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84DD8250-5B21-4510-90EE-A7534A1A1B4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84DD8250-5B21-4510-90EE-A7534A1A1B4E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {620EFA37-E8E3-4165-A7F2-9CC9FB5EACAE}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,22 @@
+h1 {
+    align-items:center;
+    text-align:center;
+}
+
+.input {
+    width:100%;
+}
+
+.switch {
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  text-align: center;
+}
+
+.btn_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

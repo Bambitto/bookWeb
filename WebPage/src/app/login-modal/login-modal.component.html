@@ -1,0 +1,75 @@
+<div *ngIf="!signup">
+  <h1 mat-dialog-title>Zaloguj sie</h1>
+  <mat-dialog-content>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(signup)">
+      <mat-form-field class="input">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="użytkownik@mail.pl">
+        @if (loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')) {
+        <mat-error>Please enter a valid email address</mat-error>
+        }
+        @if (loginForm.get('email')?.hasError('required')) {
+        <mat-error>Email jest <strong>wymagany</strong></mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="input">
+        <mat-label>Hasło</mat-label>
+        <input matInput type="password" formControlName="password">
+        @if (loginForm.get('password')?.hasError('required')) {
+        <mat-error>Hasło jest <strong>wymagane</strong></mat-error>
+        }
+      </mat-form-field>
+      <div class="btn_center">
+        <button type="submit" mat-button [disabled]="!loginForm.valid" class="btn">Zaloguj sie</button>
+      </div>
+    </form>
+
+  </mat-dialog-content>
+</div>
+<div *ngIf="signup">
+  <h1 mat-dialog-title>Zarejestruj sie</h1>
+  <mat-dialog-content>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signup)">
+      <mat-form-field class="input">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+        @if (signupForm.get('email')?.hasError('email') && !signupForm.get('email')?.hasError('required')) {
+        <mat-error>Please enter a valid email address</mat-error>
+        }
+        @if (signupForm.get('email')?.hasError('required')) {
+        <mat-error>Email jest <strong>wymagany</strong></mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="input">
+        <mat-label>Hasło</mat-label>
+        <input matInput type="password" formControlName="password">
+        @if (signupForm.get('password')?.hasError('required')) {
+        <mat-error>Hasło jest <strong>wymagane</strong></mat-error>
+        }
+        @if (signupForm.get('password')?.hasError('minLenght')) {
+        <mat-error> <strong>wymagane</strong></mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="input">
+        <mat-label>Powtórz hasło</mat-label>
+        <input matInput type="password" formControlName="retypepassword">
+        @if (signupForm.get('retypepassword')?.hasError('required')) {
+        <mat-error>Powtórz hasło!</mat-error>
+        }
+        <mat-error *ngIf="signupForm.hasError('notSame')">
+          Passwords do not match
+        </mat-error>
+      </mat-form-field>
+      <div class="btn_center">
+        <button type="submit" mat-button [disabled]="!signupForm.valid" class="btn">Zarejestruj sie</button>
+      </div>
+    </form>
+
+
+  </mat-dialog-content>
+</div>
+<div class="btn_center">
+  <mat-dialog-actions>
+    <button (click)="toggleSignup()" mat-button>{{ signup ? 'Masz już konto?' : 'Zarejestruj się' }}</button>
+  </mat-dialog-actions>
+</div>

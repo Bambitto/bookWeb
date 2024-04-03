@@ -1,0 +1,21 @@
+<div class="genres">
+  <mat-chip-listbox (change)="onSelection($any($event))">
+    <mat-chip-option *ngFor="let genre of genres" color="accent" [value] ="genre">
+      {{genre}}
+    </mat-chip-option>
+  </mat-chip-listbox>
+</div>
+<div class="book_list">
+  <div *ngFor="let book of displayedBooks" class="book">
+    <div class="div_img">
+      <img [src]="book.imageUrl" alt="{{book.title}}">
+    </div>
+    <button mat-icon-button color="warn" class="btn">
+      <mat-icon *ngIf="!book.isFavorite">favorite_border</mat-icon>
+      <mat-icon *ngIf="book.isFavorite">favorite</mat-icon>
+    </button>
+    <h3>{{ book.title }}</h3>
+    <p>Autor: {{ book.author }}</p>
+    <p>Gatunek: {{ book.genre }}</p>
+  </div>
+</div>
