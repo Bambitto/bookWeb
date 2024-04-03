@@ -14,6 +14,7 @@ namespace Public.GetBooks
         public override void Configure()
         {
             Get("/public/get-books");
+            ResponseCache(60);
             AllowAnonymous();
         }
 
@@ -24,6 +25,7 @@ namespace Public.GetBooks
             if (books is null || !books.Any())
             {
                 await SendNoContentAsync(c);
+                
             }
 
             else
@@ -40,7 +42,8 @@ namespace Public.GetBooks
                         Genre = x.Genre.Name,
                         CreatedDate = x.CreatedDate,
                         UpdatedDate = x.UpdatedDate,
-                        Reviews = x.Reviews
+                        Reviews = x.Reviews,
+                        Score = x.Reviews.Count != 0 ? x.Reviews.Average(x => x.Score) : 0
                     })
                 };
                 await SendOkAsync(response, c);

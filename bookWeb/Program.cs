@@ -15,8 +15,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddResponseCaching();
 
 var app = builder.Build();
 app.UseFastEndpoints()
     .UseSwaggerGen();
+
+app.UseResponseCaching();
+
 app.Run();
