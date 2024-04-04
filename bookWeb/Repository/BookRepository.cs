@@ -48,5 +48,11 @@ namespace bookWebApi.Repository
             oldBook.UpdatedDate = DateTime.Now;
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<Book?> GetBookByTitle(string title)
+        {
+            var a = await _context.Books.FirstOrDefaultAsync(x => x.Title.ToLower() == title.ToLower());
+            return a;
+        }
     }
 }

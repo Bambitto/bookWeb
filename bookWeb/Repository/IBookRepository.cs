@@ -9,5 +9,6 @@ namespace bookWebApi.Repository
         public Task<bool> AddBook(Book book);
         public Task<bool> DeleteBook(Book book);
         public Task<bool> UpdateBook(Book book, Book oldBook);
+        public Task<Book?> GetBookByTitle(string title);
     }
 }
