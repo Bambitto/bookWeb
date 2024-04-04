@@ -17,7 +17,7 @@ namespace Public.GetBooks
         
     }
 
-    internal sealed class Response
+    internal sealed class GetBooksResponse
     {
         public required IEnumerable<ResponseEntity> Books { get; set; }
     }

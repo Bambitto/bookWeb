@@ -2,7 +2,7 @@
 
 namespace Public.GetBooks
 {
-    internal sealed class Endpoint : EndpointWithoutRequest<Response>
+    internal sealed class Endpoint : EndpointWithoutRequest<GetBooksResponse>
     {
         private readonly IBookRepository _repo;
 
@@ -13,7 +13,7 @@ namespace Public.GetBooks
 
         public override void Configure()
         {
-            Get("/public/get-books");
+            Get("/api/book/get");
             ResponseCache(60);
             AllowAnonymous();
         }
@@ -30,7 +30,7 @@ namespace Public.GetBooks
 
             else
             {
-                var response = new Response()
+                var response = new GetBooksResponse()
                 {
                     Books = books.Select(x => new ResponseEntity
                     {
