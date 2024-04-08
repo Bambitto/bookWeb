@@ -1,13 +1,14 @@
-﻿namespace Account.LogIn
+﻿namespace Account.Signup
 {
-    internal sealed class LogInRequest
+    internal sealed class SignUpRequest
     {
         public required string Email { get; set; }
         public required string FirstName { get; set; }
         public string? LastName { get; set; }
         public required string Password { get; set; }
     }
-        internal sealed class Validator : Validator<LogInRequest>
+
+    internal sealed class Validator : Validator<SignUpRequest>
     {
         public Validator()
         {
