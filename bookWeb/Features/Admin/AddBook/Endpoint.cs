@@ -16,13 +16,13 @@ namespace Admin.AddBook
         public override void Configure()
         {
             Post("/api/book/create");
-            AllowAnonymous();
+            Roles("Admin");
         }
 
         public override async Task HandleAsync(AddBookRequest r, CancellationToken c)
         {
 
-            if(await _repo.GetBookByTitle(r.Title) is not null)
+            if (await _repo.GetBookByTitle(r.Title) is not null)
                 {
                 ThrowError("Ta książka już istnieje");
                 }

@@ -1,15 +1,63 @@
-﻿namespace Account.LogIn
+﻿using bookWebApi.Repository;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using FastEndpoints.Security;
+
+namespace Account.LogIn
 {
     internal sealed class Endpoint : Endpoint<LogInRequest>
     {
+        public Endpoint(IUserRepository repo) 
+        {
+            _repo = repo;
+        }
+
+
+        private readonly IUserRepository _repo;
+
+
         public override void Configure()
         {
-            Post("");
+            Post("/api/account/login");
+            AllowAnonymous();
         }
 
         public override async Task HandleAsync(LogInRequest r, CancellationToken c)
         {
-            await SendStringAsync("something went wrong", 400, cancellation: c);
+            var user = await _repo.GetUserByEmail(r.Email);
+
+            if (user == null)
+            {
+                ThrowError("Nieprawidłowy e-mail bądź hasło");
+            }
+
+            if(user.Password != r.Password)
+            {
+                ThrowError("Nieprawidłowy e-mail bądź hasło");
+            }
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, "Admin")
+            };
+
+            var secret = Config["Jwt:secret"];
+
+            var tokenString = JwtBearer.CreateToken(o =>
+            {
+                o.SigningKey = secret;
+                o.ExpireAt = DateTime.UtcNow.AddHours(2);
+                o.User.Roles.Add("User");
+                o.User.Claims.Add(("Email", user.Email));
+            }
+            );
+
+            await SendAsync(tokenString);
+           
         }
     }
 }

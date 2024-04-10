@@ -19,8 +19,8 @@ namespace Account.Signup
         }
 
         public override async Task HandleAsync(SignUpRequest r, CancellationToken c)
-        {
-            if (_repo.GetUserByEmail(r.Email) is not null)
+        {           
+            if (await _repo.GetUserByEmail(r.Email) is not null)
             {
                 ThrowError("Użytkownik z takim adresem e-mail już istnieje");
             }
