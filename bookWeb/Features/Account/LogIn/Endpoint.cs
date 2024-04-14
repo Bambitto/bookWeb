@@ -39,17 +39,11 @@ namespace Account.LogIn
                 ThrowError("Nieprawidłowy e-mail bądź hasło");
             }
 
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, "Admin")
-            };
 
-            var secret = Config["Jwt:secret"];
 
             var tokenString = JwtBearer.CreateToken(o =>
             {
-                o.SigningKey = secret;
+                o.SigningKey = Config["Jwt:secret"];
                 o.ExpireAt = DateTime.UtcNow.AddHours(2);
                 o.User.Roles.Add("User");
                 o.User.Claims.Add(("Email", user.Email));

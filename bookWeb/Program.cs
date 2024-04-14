@@ -15,7 +15,14 @@ var builder = WebApplication.CreateBuilder();
 
 builder.Services.AddAuthenticationJwtBearer(o => o.SigningKey = builder.Configuration["Jwt:secret"]);
 builder.Services.AddAuthorization();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -36,7 +43,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseFastEndpoints()
     .UseSwaggerGen();
-
+app.UseCors("AllowAllOrigins");
 app.UseResponseCaching();
 
 app.Run();

@@ -9,7 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { LoginModalComponent } from '../app/login-modal/login-modal.component'
 import { MatDialog } from '@angular/material/dialog';
 import { BookListComponent } from '../app/book-list/book-list.component'
-import { SharedService } from './SharedService';
+import { SharedService } from './services/SharedService';
+
 @Component({
   selector: 'app-root',
   standalone: true,

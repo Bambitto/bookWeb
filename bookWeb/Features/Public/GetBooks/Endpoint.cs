@@ -13,7 +13,7 @@ namespace Public.GetBooks
 
         public override void Configure()
         {
-            Get("/api/book/get");
+            Get("/api/books");
             ResponseCache(60);
             AllowAnonymous();
         }
