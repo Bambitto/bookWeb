@@ -39,12 +39,12 @@ namespace bookWebApi.Repository
             return await _context.Books.FindAsync(id);
         }
 
-        public async Task<bool> UpdateBook(Book book, Book oldBook)
+        public async Task<bool> UpdateBook(Book oldBook)
         {
-            oldBook.Title = book.Title;
-            oldBook.Author = book.Author;
-            oldBook.Description = book.Description;
-            oldBook.Genre = book.Genre;
+            //oldBook.Title = book.Title;
+            //oldBook.Author = book.Author;
+            //oldBook.Description = book.Description;
+            //oldBook.Genre = book.Genre;
             oldBook.UpdatedDate = DateTime.Now;
             return await _context.SaveChangesAsync() > 0;
         }

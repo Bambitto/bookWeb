@@ -8,7 +8,7 @@ namespace bookWebApi.Repository
         public Task<IEnumerable<Book>> GetAllBooks();
         public Task<bool> AddBook(Book book);
         public Task<bool> DeleteBook(Book book);
-        public Task<bool> UpdateBook(Book book, Book oldBook);
+        public Task<bool> UpdateBook(Book oldBook);
         public Task<Book?> GetBookByTitle(string title);
     }
 }

@@ -23,9 +23,9 @@ namespace Admin.AddBook
         {
 
             if (await _repo.GetBookByTitle(r.Title) is not null)
-                {
+            {
                 ThrowError("Ta książka już istnieje");
-                }
+            }
 
 
             var book = new Book
