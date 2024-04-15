@@ -19,6 +19,10 @@
         <mat-error>Hasło jest <strong>wymagane</strong></mat-error>
         }
       </mat-form-field>
+      <div *ngIf="apiError" class="api-error">
+        {{ apiError }}
+      </div>
+
       <div class="btn_center">
         <button type="submit" mat-button [disabled]="!loginForm.valid" class="btn">Zaloguj sie</button>
       </div>

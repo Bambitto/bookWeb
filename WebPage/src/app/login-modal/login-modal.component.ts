@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common'
+import { UserService } from '../services/user.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-modal',
@@ -21,7 +23,7 @@ import { CommonModule } from '@angular/common'
   styleUrl: './login-modal.component.css'
 })
 export class LoginModalComponent {
-  constructor(public dialogRef: MatDialogRef<LoginModalComponent>) { }
+  constructor(public dialogRef: MatDialogRef<LoginModalComponent>, private userService: UserService) { }
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])
@@ -33,26 +35,33 @@ export class LoginModalComponent {
     retypepassword: new FormControl('', [Validators.required])
   });
 
-  signup : boolean = false;
-
+  signup: boolean = false;
+  apiError: string = '';
   toggleSignup(): void {
     this.signup = !this.signup;
   }
 
-  onSubmit(signup : boolean) {
+  onSubmit(signup: boolean) {
     // Here you can access the email and password
     var signInValues = this.loginForm.value;
     var signUpValues = this.signupForm.value;
-    var isSuccess = true;
     if (signup) {
       console.log(`Email: ${signUpValues.email}, Password: ${signUpValues.password}, Retype Password: ${signUpValues.retypepassword}`);
     }
     else {
-      localStorage.setItem("isLoggedIn", "true");
+      this.userService.login(this.loginForm).subscribe((response: HttpResponse<any>) => {
+        console.log(response);
+        if (response.status === 200) {
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("jwt", response.body);
+          this.dialogRef.close();
+        }
+        else {
+          this.apiError = response.body.error.errors.generalErrors[0];
+        }
+      });
+
     }
 
-    if (isSuccess) {
-      this.dialogRef.close();
-    }
   }
 }

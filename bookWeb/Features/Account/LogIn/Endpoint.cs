@@ -50,7 +50,7 @@ namespace Account.LogIn
             }
             );
 
-            await SendAsync(tokenString);
+            await SendOkAsync(tokenString);
            
         }
     }
