@@ -27,4 +27,19 @@ export class UserService {
       })
     )
   }
+
+  signUp(creds: FormGroup): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${this.apiUrl}/account/signup`, creds.value, { observe: 'response', headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
+      .pipe(
+        catchError((error) => {
+          const errorResponse = {
+            error: error.error
+          }
+          return of(new HttpResponse({
+            body: errorResponse,
+            status: error.status
+          }));
+        })
+      )
+  }
 }

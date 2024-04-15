@@ -31,6 +31,8 @@ export class LoginModalComponent {
 
   signupForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl(''),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     retypepassword: new FormControl('', [Validators.required])
   });
@@ -54,6 +56,8 @@ export class LoginModalComponent {
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("jwt", response.body);
+         // location.reload();
+          //window.location.reload();
           this.dialogRef.close();
         }
         else {

@@ -34,15 +34,30 @@ export class AppComponent {
       link: '/news',
     }];
   value = '';
+  loggedIn: boolean = localStorage.getItem('jwt') != null;
 
   constructor(public dialog: MatDialog, private sharedService: SharedService) { }
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+
+  openDialog(): void {
+    this.loggedIn = localStorage.getItem('jwt') == null;
+
+    if (this.loggedIn) {
+      this.openLoginDialog('300ms', '300ms')
+    }
+    else {
+
+    }
+  }
+
+  openLoginDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(LoginModalComponent, {
       width: '500px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
   }
+ 
+
   updateSearch() {
     this.sharedService.updateSearchTerm(this.value);
   }

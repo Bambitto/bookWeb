@@ -38,10 +38,24 @@
         <mat-label>Email</mat-label>
         <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
         @if (signupForm.get('email')?.hasError('email') && !signupForm.get('email')?.hasError('required')) {
-        <mat-error>Please enter a valid email address</mat-error>
+        <mat-error>Wprowadź poprawny adres e-mail</mat-error>
         }
         @if (signupForm.get('email')?.hasError('required')) {
         <mat-error>Email jest <strong>wymagany</strong></mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="input">
+        <mat-label>Imię</mat-label>
+        <input matInput type="text" formControlName="firstName">
+        @if (signupForm.get('firstName')?.hasError('required')) {
+        <mat-error>Imię jest <strong>wymagane</strong></mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="input">
+        <mat-label>Nazwisko</mat-label>
+        <input matInput type="text" formControlName="lastName">
+        @if (signupForm.get('lastName')?.hasError('required')) {
+        <mat-error>Imię jest <strong>wymagane</strong></mat-error>
         }
       </mat-form-field>
       <mat-form-field class="input">
