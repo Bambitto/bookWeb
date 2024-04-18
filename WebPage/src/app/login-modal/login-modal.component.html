@@ -19,10 +19,6 @@
         <mat-error>Hasło jest <strong>wymagane</strong></mat-error>
         }
       </mat-form-field>
-      <div *ngIf="apiError" class="api-error">
-        {{ apiError }}
-      </div>
-
       <div class="btn_center">
         <button type="submit" mat-button [disabled]="!loginForm.valid" class="btn">Zaloguj sie</button>
       </div>
@@ -82,12 +78,15 @@
         <button type="submit" mat-button [disabled]="!signupForm.valid" class="btn">Zarejestruj sie</button>
       </div>
     </form>
-
-
   </mat-dialog-content>
 </div>
+
+
 <div class="btn_center">
   <mat-dialog-actions>
     <button (click)="toggleSignup()" mat-button>{{ signup ? 'Masz już konto?' : 'Zarejestruj się' }}</button>
   </mat-dialog-actions>
+</div>
+<div *ngIf="apiResponse" class="api-response" [style.color]="apiResponse[1] == 'error' ? 'darkred' : 'lightblue'">
+  {{apiResponse[0]}}
 </div>

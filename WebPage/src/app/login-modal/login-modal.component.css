@@ -21,9 +21,10 @@ h1 {
   text-align: center;
 }
 
-.api-error {
-  color: darkred;
+.api-response {
   justify-content: center;
   align-items: center;
   text-align: center;
+  font-weight: bold;
+  padding: 10px;
 }

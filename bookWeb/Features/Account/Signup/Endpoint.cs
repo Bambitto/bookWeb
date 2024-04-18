@@ -14,7 +14,7 @@ namespace Account.Signup
 
         public override void Configure()
         {
-            Post("/account/singup");
+            Post("/api/account/signup");
             AllowAnonymous();
         }
 
@@ -38,8 +38,10 @@ namespace Account.Signup
             {
                 await SendOkAsync();
             }
-
-            ThrowError("Coś poszło nie tak");
+            else
+            {
+                ThrowError("Coś poszło nie tak");
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Book } from '../book.model';
+import { Book } from '../models';
 import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';

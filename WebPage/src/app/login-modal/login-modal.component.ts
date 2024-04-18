@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common'
 import { UserService } from '../services/user.service';
 import { HttpResponse } from '@angular/common/http';
+import { Signup } from '../models';
 
 @Component({
   selector: 'app-login-modal',
@@ -38,17 +39,36 @@ export class LoginModalComponent {
   });
 
   signup: boolean = false;
-  apiError: string = '';
+  apiResponse: string[] = ['', ''];
+
   toggleSignup(): void {
     this.signup = !this.signup;
+    this.apiResponse = ['','']
   }
 
   onSubmit(signup: boolean) {
     // Here you can access the email and password
-    var signInValues = this.loginForm.value;
-    var signUpValues = this.signupForm.value;
+    const signUpValues = this.signupForm.value;
     if (signup) {
-      console.log(`Email: ${signUpValues.email}, Password: ${signUpValues.password}, Retype Password: ${signUpValues.retypepassword}`);
+
+      const request: Signup = {
+        email: signUpValues.email,
+        firstName: signUpValues.firstName,
+        lastName: signUpValues.lastName,
+        password: signUpValues.password
+      }
+
+      this.userService.signUp(request).subscribe((response: HttpResponse<any>) => {
+        if (response.status === 200) {
+          this.toggleSignup();
+          this.signupForm.reset();
+          this.apiResponse[0] = 'Konto założone pomyślnie, możesz się teraz zalogować!';
+          this.apiResponse[1] = 'success'  
+        }
+        else {
+          this.displayError(response);
+        }
+      })
     }
     else {
       this.userService.login(this.loginForm).subscribe((response: HttpResponse<any>) => {
@@ -56,16 +76,18 @@ export class LoginModalComponent {
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("jwt", response.body);
-         // location.reload();
-          //window.location.reload();
           this.dialogRef.close();
         }
-        else {
-          this.apiError = response.body.error.errors.generalErrors[0];
+        else {  
+          this.displayError(response);
         }
       });
-
     }
+  }
 
+
+  displayError(response: HttpResponse<any>) {
+    this.apiResponse[0] = response.body.error.errors.generalErrors[0];
+    this.apiResponse[1] = 'error'
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { Signup } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,10 @@ export class UserService {
     )
   }
 
-  signUp(creds: FormGroup): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.apiUrl}/account/signup`, creds.value, { observe: 'response', headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
+  signUp(request: Signup): Observable<HttpResponse<any>> {
+
+
+    return this.http.post<any>(`${this.apiUrl}/account/signup`, request, { observe: 'response', headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
       .pipe(
         catchError((error) => {
           const errorResponse = {
