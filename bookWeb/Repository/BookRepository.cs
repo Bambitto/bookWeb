@@ -54,5 +54,10 @@ namespace bookWebApi.Repository
             var a = await _context.Books.FirstOrDefaultAsync(x => x.Title.ToLower() == title.ToLower());
             return a;
         }
+
+        public async Task<IEnumerable<Genre>> GetGenres()
+        {
+            return await _context.Genres.ToListAsync();
+        }
     }
 }

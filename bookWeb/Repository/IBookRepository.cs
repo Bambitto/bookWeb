@@ -10,5 +10,6 @@ namespace bookWebApi.Repository
         public Task<bool> DeleteBook(Book book);
         public Task<bool> UpdateBook(Book oldBook);
         public Task<Book?> GetBookByTitle(string title);
+        public Task<IEnumerable<Genre>> GetGenres();
     }
 }
