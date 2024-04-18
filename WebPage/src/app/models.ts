@@ -1,12 +1,15 @@
 type nullableString = string | null | undefined;
 
 export interface Book {
-  id: number;
+  id: string;
   title: string;
-  genre: string;
   author: string;
-  imageUrl: string;
-  isFavorite: boolean;
+  genre: string;
+  genreId: string;
+  score: DoubleRange;
+  CreatedDate: Date;
+  UpdatedDate: Date;
+  Reviews: Review[];
 }
 
 export interface Signup {
@@ -14,4 +17,13 @@ export interface Signup {
   firstName: nullableString;
   lastName: nullableString;
   password: nullableString;
+}
+
+export interface Review {
+  bookId: string;
+  comment: string;
+  id: string;
+  score: number;
+  userId: string;
+  user: any | null;
 }

@@ -38,25 +38,30 @@ export class AppComponent {
 
   constructor(public dialog: MatDialog, private sharedService: SharedService) { }
 
-  openDialog(): void {
-    this.loggedIn = localStorage.getItem('jwt') == null;
 
-    if (this.loggedIn) {
-      this.openLoginDialog('300ms', '300ms')
-    }
-    else {
+  openDialog(dialog: string): void {
 
+    switch (dialog) {
+      case 'login':
+
+        this.loggedIn = localStorage.getItem('jwt') == null;
+        if (this.loggedIn) {
+          this.openLoginDialog('300ms', '300ms', LoginModalComponent)
+        }
+        else {
+        }
+        break;
     }
   }
 
-  openLoginDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(LoginModalComponent, {
+  openLoginDialog(enterAnimationDuration: string, exitAnimationDuration: string, modal: any): void {
+    this.dialog.open(modal, {
       width: '500px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
   }
- 
+
 
   updateSearch() {
     this.sharedService.updateSearchTerm(this.value);

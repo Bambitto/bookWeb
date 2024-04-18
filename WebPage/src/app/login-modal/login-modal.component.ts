@@ -25,11 +25,11 @@ import { Signup } from '../models';
 })
 export class LoginModalComponent {
   constructor(public dialogRef: MatDialogRef<LoginModalComponent>, private userService: UserService) { }
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])
   });
-
   signupForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     firstName: new FormControl('', [Validators.required]),

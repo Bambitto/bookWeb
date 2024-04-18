@@ -7,6 +7,8 @@ import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 import { SharedService } from '../services/SharedService';
 import { BookService } from '../services/book.service';
+import { MatDialog } from '@angular/material/dialog';
+import { BookModalComponent } from '../book-modal/book-modal.component'
 
 
 @Component({
@@ -17,22 +19,11 @@ import { BookService } from '../services/book.service';
   styleUrl: './book-list.component.css'
 })
 export class BookListComponent implements OnInit, OnDestroy {
-  books: any[];
-  displayedBooks: any[];
+  books: Book[];
+  displayedBooks: Book[];
+  testBooks: Book[] = [];
 
-  booksTest: any[]
-    = [
-    {
-      id: 1,
-      title: 'Beautiful Beach House',
-      author: 'J. N. Bowling',
-      genre: 'Komedia',
-      imageUrl: 'https://sukces.pl/sklep/wp-content/uploads/2019/02/ksiazka_rusz_dupe.jpg',
-      isFavorite: true,
-    }
-
-  ];
-  constructor(private sharedService: SharedService, private bookService: BookService) {
+  constructor(private sharedService: SharedService, private bookService: BookService, private dialog: MatDialog) {
     this.books = [];
     this.displayedBooks = this.books;
   }
@@ -43,9 +34,10 @@ export class BookListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.bookService.getPosts().subscribe((data: any) => {
+    this.bookService.getBooks().subscribe((data: any) => {
       this.books = data.books;
       this.displayedBooks = data.books;
+      console.log(this.testBooks);
       console.log(data);
       console.log(this.books);
     });
@@ -80,5 +72,18 @@ export class BookListComponent implements OnInit, OnDestroy {
         book.author.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
+  }
+  openDialog(book: any): void {
+    console.log(book);
+    this.openBookDialog(book, '300ms', '300ms')
+  }
+
+  openBookDialog(book: any, enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(BookModalComponent, {
+      width: '500px',
+      data: book,
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
   }
 }
