@@ -1,10 +1,12 @@
 ﻿using bookWebApi.Repository;
+using Serilog;
 
 namespace Public.GetBooks
 {
     internal sealed class Endpoint : EndpointWithoutRequest<GetBooksResponse>
     {
         private readonly IBookRepository _repo;
+        
 
         public Endpoint(IBookRepository repo)
         {
@@ -25,9 +27,8 @@ namespace Public.GetBooks
             if (books is null || !books.Any())
             {
                 await SendNoContentAsync(c);
-                
+                Log.Error("Books not retrieved");
             }
-
             else
             {
                 var response = new GetBooksResponse()

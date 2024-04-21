@@ -10,6 +10,7 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using FastEndpoints.Swagger;
 using FastEndpoints.Security;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -31,19 +32,31 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddResponseCaching();
-
-
 builder.Services.AddFastEndpoints();
 builder.Services.AddSwaggerDocument();
 
+builder.Services.AddResponseCaching();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Host.UseSerilog((context, config) =>
+        config.WriteTo.Console(Serilog.Events.LogEventLevel.Verbose));
+}
+else
+{
+    builder.Host.UseSerilog((context, config) =>
+        config.WriteTo.File("Logs\\log-.txt", Serilog.Events.LogEventLevel.Warning, rollingInterval: RollingInterval.Day));
+}
+
 var app = builder.Build();
+app.UseResponseCaching();
+
 
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseFastEndpoints()
     .UseSwaggerGen();
 app.UseCors("AllowAllOrigins");
-app.UseResponseCaching();
+
 
 app.Run();
