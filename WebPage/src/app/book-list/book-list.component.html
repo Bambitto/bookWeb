@@ -1,7 +1,7 @@
 <div class="genres">
   <mat-chip-listbox (change)="onSelection($any($event))">
     <mat-chip-option *ngFor="let genre of genres" color="accent" [value] ="genre">
-      {{genre}}
+      {{genre.name}}
     </mat-chip-option>
   </mat-chip-listbox>
 </div>

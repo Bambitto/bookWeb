@@ -27,3 +27,7 @@ export interface Review {
   userId: string;
   user: any | null;
 }
+export interface Genre {
+  id: string;
+  name: string;
+}

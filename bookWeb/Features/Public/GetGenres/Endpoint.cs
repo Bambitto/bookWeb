@@ -14,7 +14,9 @@ internal sealed class Endpoint : EndpointWithoutRequest<Response>
 
     public override void Configure()
     {
-        Post("route-pattern");
+        Get("/api/genres");
+        ResponseCache(600);
+        AllowAnonymous();
     }
 
     public override async Task HandleAsync(CancellationToken c)

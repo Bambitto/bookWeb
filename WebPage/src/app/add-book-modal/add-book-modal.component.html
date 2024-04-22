@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>Zarejestruj sie</h1>
+<mat-dialog-content>
+  <form [formGroup]="addBookForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="input">
+      <mat-label>Tytuł</mat-label>
+      <input type="text" matInput formControlName="title">
+      @if (addBookForm.get('title')?.hasError('required')) {
+      <mat-error>Tytuł jest <strong>wymagany</strong></mat-error>
+      }
+      @if (addBookForm.get('title')?.hasError('maxLenght')) {
+      <mat-error>Tytuł nie może mieć więcej niż 64 znaki</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="input">
+      <mat-label>Autor</mat-label>
+      <input type="text" matInput formControlName="author">
+      @if (addBookForm.get('author')?.hasError('required')) {
+      <mat-error>Tytuł jest <strong>wymagany</strong></mat-error>
+      }
+      @if (addBookForm.get('author')?.hasError('maxLenght')) {
+      <mat-error>Tytuł nie może mieć więcej niż 64 znaki</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="input">
+      <mat-label>Opis</mat-label>
+      <input type="text" matInput formControlName="description">
+      @if (addBookForm.get('description')?.hasError('required')) {
+      <mat-error>Tytuł jest <strong>wymagany</strong></mat-error>
+      }
+      @if (addBookForm.get('description')?.hasError('maxLenght')) {
+      <mat-error>Tytuł nie może mieć więcej niż 512 znaki</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="input">
+      <mat-label>Gatunek</mat-label>
+      <input type="text" matInput formControlName="title">
+      @if (addBookForm.get('title')?.hasError('required')) {
+      <mat-error>Tytuł jest <strong>wymagany</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <div class="btn_center">
+      <button type="submit" mat-button [disabled]="!addBookForm.valid" class="btn">Dodaj</button>
+    </div>
+  </form>
+</mat-dialog-content>

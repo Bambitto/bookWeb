@@ -30,8 +30,6 @@ export class UserService {
   }
 
   signUp(request: Signup): Observable<HttpResponse<any>> {
-
-
     return this.http.post<any>(`${this.apiUrl}/account/signup`, request, { observe: 'response', headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
       .pipe(
         catchError((error) => {

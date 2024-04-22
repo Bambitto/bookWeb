@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Book } from '../models';
+import { Book, Genre } from '../models';
 import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,16 +19,13 @@ import { BookModalComponent } from '../book-modal/book-modal.component'
   styleUrl: './book-list.component.css'
 })
 export class BookListComponent implements OnInit, OnDestroy {
-  books: Book[];
-  displayedBooks: Book[];
-  testBooks: Book[] = [];
+  books: Book[] = [];
+  displayedBooks: Book[] = [];
 
   constructor(private sharedService: SharedService, private bookService: BookService, private dialog: MatDialog) {
-    this.books = [];
-    this.displayedBooks = this.books;
   }
-  public genres: string[] = ['Komedia', 'Kryminał', 'Powieść', 'Sci-finction', 'Kryminał', 'Powieść', 'Sci-finction', 'Kryminał', 'Powieść', 'Sci-finction']
-  selectedGenre = "";
+  public genres: Genre[] = [];
+  selectedGenre: Genre | null = null;
   private searchSubscription: Subscription = new Subscription;
 
 
@@ -37,9 +34,10 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.bookService.getBooks().subscribe((data: any) => {
       this.books = data.books;
       this.displayedBooks = data.books;
-      console.log(this.testBooks);
-      console.log(data);
-      console.log(this.books);
+    });
+
+    this.bookService.getGenres().subscribe((data: any) => {
+      this.genres = data.genres;
     });
 
     this.searchSubscription = this.sharedService.currentSearchTerm.subscribe(term => {
@@ -56,7 +54,7 @@ export class BookListComponent implements OnInit, OnDestroy {
     if (selected !== undefined) {
       // Assuming single selection, adjust if multiple
       this.selectedGenre = selected;
-      this.displayedBooks = this.books.filter(book => book.genre === this.selectedGenre);
+      this.displayedBooks = this.books.filter(book => book.genreId === this.selectedGenre?.id);
     } else {
       this.displayedBooks = this.books;
     }
