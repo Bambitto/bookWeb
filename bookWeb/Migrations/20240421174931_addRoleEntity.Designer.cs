@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using bookWebApi.Data;
 
@@ -11,9 +12,11 @@ using bookWebApi.Data;
 namespace bookWebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240421174931_addRoleEntity")]
+    partial class addRoleEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,28 +59,6 @@ namespace bookWebApi.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("Book", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("b566f1ce-fe95-49e1-80fe-00599c72a63c"),
-                            Author = "Test",
-                            CreatedDate = new DateTime(2024, 4, 21, 19, 53, 48, 855, DateTimeKind.Local).AddTicks(1024),
-                            Description = "test",
-                            GenreId = new Guid("92be180c-9da6-4160-b329-28941a676051"),
-                            Title = "Test",
-                            UpdatedDate = new DateTime(2024, 4, 21, 19, 53, 48, 855, DateTimeKind.Local).AddTicks(1076)
-                        },
-                        new
-                        {
-                            Id = new Guid("c5925e50-5698-4117-b649-447e38d8ac87"),
-                            Author = "Test2",
-                            CreatedDate = new DateTime(2024, 4, 21, 19, 53, 48, 855, DateTimeKind.Local).AddTicks(1078),
-                            Description = "test2",
-                            GenreId = new Guid("bad03d5b-0398-4efe-a343-0b2c0a8d796c"),
-                            Title = "Test2",
-                            UpdatedDate = new DateTime(2024, 4, 21, 19, 53, 48, 855, DateTimeKind.Local).AddTicks(1080)
-                        });
                 });
 
             modelBuilder.Entity("bookWebApi.Entities.Genre", b =>
@@ -133,24 +114,6 @@ namespace bookWebApi.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Review", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("ab08f374-bbec-4005-8122-73d687faf833"),
-                            BookId = new Guid("b566f1ce-fe95-49e1-80fe-00599c72a63c"),
-                            Comment = "test",
-                            Score = 4,
-                            UserId = new Guid("3cc9a958-1247-43fc-a0c7-462289af73cd")
-                        },
-                        new
-                        {
-                            Id = new Guid("3ccdf84b-7df2-484f-987c-f55e0013e672"),
-                            BookId = new Guid("c5925e50-5698-4117-b649-447e38d8ac87"),
-                            Comment = "test",
-                            Score = 5,
-                            UserId = new Guid("3cc9a958-1247-43fc-a0c7-462289af73cd")
-                        });
                 });
 
             modelBuilder.Entity("bookWebApi.Entities.Role", b =>
@@ -212,17 +175,6 @@ namespace bookWebApi.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("User", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("3cc9a958-1247-43fc-a0c7-462289af73cd"),
-                            Email = "test@test.com",
-                            FirstName = "Test",
-                            LastName = "Test",
-                            Password = "test123",
-                            RoleId = new Guid("36590529-1bf3-46db-ad8e-023caafb6e13")
-                        });
                 });
 
             modelBuilder.Entity("bookWebApi.Entities.Book", b =>

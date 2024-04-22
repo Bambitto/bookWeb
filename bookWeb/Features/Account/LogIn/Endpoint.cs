@@ -45,7 +45,7 @@ namespace Account.LogIn
             {
                 o.SigningKey = Config["Jwt:secret"];
                 o.ExpireAt = DateTime.UtcNow.AddHours(2);
-                o.User.Roles.Add("User");
+                o.User.Roles.Add(user.Role.Name);
                 o.User.Claims.Add(("Email", user.Email));
             }
             );

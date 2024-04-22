@@ -7,7 +7,9 @@
         public required string FirstName { get; set; }
         public string? LastName { get; set; }
         public required string Password { get; set; }
+        public Guid RoleId { get; set; }
 
         public List<Review> Reviews { get; set; }
+        public Role Role { get; set; }
     }
 }

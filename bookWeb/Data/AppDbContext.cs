@@ -13,11 +13,13 @@ namespace bookWebApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var Genre1 = Guid.NewGuid();
-            var Genre2 = Guid.NewGuid();
+            var komedia = new Guid("BAD03D5B-0398-4EFE-A343-0B2C0A8D796C");
+            var kryminiał = new Guid("92BE180C-9DA6-4160-B329-28941A676051");
             var Book1 = Guid.NewGuid();
             var Book2 = Guid.NewGuid();
             var User1 = Guid.NewGuid();
+            var admin = new Guid("36590529-1BF3-46DB-AD8E-023CAAFB6E13");
+            var user = new Guid("C9C05127-1026-4B32-8ED4-27824D44E08B");
 
 
 
@@ -71,6 +73,9 @@ namespace bookWebApi.Data
                 .ToTable("User");
 
             modelBuilder.Entity<User>()
+                .HasOne(u => u.Role);
+
+            modelBuilder.Entity<User>()
                 .Property(x => x.Email).IsRequired().HasMaxLength(64);
 
             modelBuilder.Entity<User>()
@@ -91,23 +96,33 @@ namespace bookWebApi.Data
 
             modelBuilder.Entity<Genre>()
                 .HasData(
-                new Genre { Id = Genre1, Name = "Komedia" },
-                new Genre { Id = Genre2, Name = "Kryminał" }
+                new Genre { Id = komedia, Name = "Komedia" },
+                new Genre { Id = kryminiał, Name = "Kryminał" }
                 );
             #endregion
 
+            #region Role
+            modelBuilder.Entity<Role>()
+                .ToTable("Roles");
+
+            modelBuilder.Entity<Role>()
+                .HasData(
+                new Role { Id = user, Name = "User" },
+                new Role { Id = admin, Name = "Admin" }
+                );
+            #endregion
 
             #region TestData
 
             modelBuilder.Entity<User>()
                 .HasData(
-                new User { Id = User1, Email = "test@test.com", FirstName = "Test", LastName = "Test", Password = "test123" }
+                new User { Id = User1, Email = "test@test.com", FirstName = "Test", LastName = "Test", Password = "test123", RoleId=admin }
                 );
 
             modelBuilder.Entity<Book>()
                 .HasData(
-                new Book { Author = "Test", Title = "Test", CreatedDate = DateTime.Now, Description = "test", GenreId = Genre1, Id = Book1, UpdatedDate = DateTime.Now},
-                new Book { Author = "Test2", Title = "Test2", CreatedDate = DateTime.Now, Description = "test2", GenreId = Genre2, Id = Book2, UpdatedDate = DateTime.Now }
+                new Book { Author = "Test", Title = "Test", CreatedDate = DateTime.Now, Description = "test", GenreId = kryminiał, Id = Book1, UpdatedDate = DateTime.Now },
+                new Book { Author = "Test2", Title = "Test2", CreatedDate = DateTime.Now, Description = "test2", GenreId = komedia, Id = Book2, UpdatedDate = DateTime.Now }
                 );
 
             modelBuilder.Entity<Review>()
@@ -115,7 +130,7 @@ namespace bookWebApi.Data
                 new Review { Id = Guid.NewGuid(), BookId = Book1, Score = 4, Comment = "test", UserId = User1 },
                 new Review { Id = Guid.NewGuid(), BookId = Book2, Score = 5, Comment = "test", UserId = User1 }
                 );
-            
+
             #endregion
         }
     }
