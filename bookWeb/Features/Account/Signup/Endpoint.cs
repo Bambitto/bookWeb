@@ -31,7 +31,8 @@ namespace Account.Signup
                 Email = r.Email,
                 FirstName = r.FirstName,
                 LastName = r.LastName,
-                Password = r.Password
+                Password = r.Password,
+                RoleId = new Guid("C9C05127-1026-4B32-8ED4-27824D44E08B")
             };
 
             if (await _repo.AddUser(user))

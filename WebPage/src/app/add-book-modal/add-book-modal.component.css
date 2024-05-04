@@ -1,0 +1,23 @@
+h1 {
+  align-items: center;
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+}
+
+.btn_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.api-response {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+}

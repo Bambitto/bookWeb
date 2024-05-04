@@ -20,7 +20,7 @@ namespace bookWebApi.Repository
 
         public async Task<User?> GetUserByEmail(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
+            return await _context.Users.Include(x=> x.Role).FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
         }
     }
 }

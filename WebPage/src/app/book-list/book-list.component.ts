@@ -24,7 +24,7 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   constructor(private sharedService: SharedService, private bookService: BookService, private dialog: MatDialog) {
   }
-  public genres: Genre[] = [];
+  genres: Genre[] = [];
   selectedGenre: Genre | null = null;
   private searchSubscription: Subscription = new Subscription;
 
@@ -72,16 +72,19 @@ export class BookListComponent implements OnInit, OnDestroy {
     }
   }
   openDialog(book: any): void {
-    console.log(book);
-    this.openBookDialog(book, '300ms', '300ms')
+
+    this.openBookDialog(book)
   }
 
-  openBookDialog(book: any, enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openBookDialog(book: any): void {
+    console.log("ksiązka");
+    console.log(book);
     this.dialog.open(BookModalComponent, {
-      width: '500px',
+      width: '40%',
+      height: '50%',
       data: book,
-      enterAnimationDuration,
-      exitAnimationDuration,
+      enterAnimationDuration: "300ms",
+      exitAnimationDuration: "300ms",
     });
   }
 }

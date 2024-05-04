@@ -6,9 +6,9 @@
   </mat-chip-listbox>
 </div>
 <div class="book_list">
-  <div *ngFor="let book of displayedBooks" class="book" (click)="openDialog(book)">
+  <div *ngFor="let book of displayedBooks" class="book" (click)="openBookDialog(book)">
     <div class="div_img">
-      <img [src]="" alt="{{book.title}}">
+      <img src="https://as1.ftcdn.net/v2/jpg/05/32/51/32/1000_F_532513268_f5drWMbbGCNcCYLfJsGdGmQUUjpb42O5.jpg">
     </div>
     <button mat-icon-button color="warn" class="btn">
       <!--<mat-icon *ngIf="!book.isFavorite">favorite_border</mat-icon>

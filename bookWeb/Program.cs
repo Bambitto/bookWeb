@@ -49,14 +49,14 @@ else
 }
 
 var app = builder.Build();
+
+app.UseCors("AllowAllOrigins");
 app.UseResponseCaching();
-
-
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseFastEndpoints()
     .UseSwaggerGen();
-app.UseCors("AllowAllOrigins");
+
 
 
 app.Run();

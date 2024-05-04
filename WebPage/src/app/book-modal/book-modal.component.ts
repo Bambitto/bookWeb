@@ -11,6 +11,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './book-modal.component.css'
 })
 export class BookModalComponent {
-  constructor(public dialogRef: MatDialogRef<BookModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { book: Book }) { }
+  book: Book;
+  constructor(public dialogRef: MatDialogRef<BookModalComponent>, @Inject(MAT_DIALOG_DATA) public data: Book) {
+    this.book = data;
+  }
 
 }

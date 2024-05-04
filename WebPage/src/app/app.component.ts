@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { LoginModalComponent } from '../app/login-modal/login-modal.component'
 import { MatDialog } from '@angular/material/dialog';
 import { BookListComponent } from '../app/book-list/book-list.component'
+import { AddBookModalComponent } from '../app/add-book-modal/add-book-modal.component'
 import { SharedService } from './services/SharedService';
 
 @Component({
@@ -43,13 +44,15 @@ export class AppComponent {
 
     switch (dialog) {
       case 'login':
-
         this.loggedIn = localStorage.getItem('jwt') == null;
-        if (this.loggedIn) {
+        if (!this.loggedIn) {
           this.openLoginDialog('300ms', '300ms', LoginModalComponent)
         }
         else {
         }
+        break;
+      case 'addBook':
+        this.openAddBookDialog();
         break;
     }
   }
@@ -62,6 +65,13 @@ export class AppComponent {
     });
   }
 
+  openAddBookDialog(): void {
+    this.dialog.open(AddBookModalComponent, {
+      width: '500px',
+      enterAnimationDuration: "300ms",
+      exitAnimationDuration: "300ms",
+    });
+  }
 
   updateSearch() {
     this.sharedService.updateSearchTerm(this.value);
