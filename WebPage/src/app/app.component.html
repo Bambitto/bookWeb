@@ -23,10 +23,10 @@
   </div>
   <div class="account" id="top_menu">
     <div>
-      <button mat-icon-button class="btn" (click)="openDialog('addBook')">
+      <button *ngIf="isAdmin" mat-icon-button class="btn" (click)="openAddBookDialog()">
         <mat-icon>note_add</mat-icon>
       </button>
-      <button mat-icon-button class="btn" (click)="openDialog('login')">
+      <button mat-icon-button class="btn" (click)="accountClick()">
         <mat-icon>account_box</mat-icon>
       </button>
     </div>

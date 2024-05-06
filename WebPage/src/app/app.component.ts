@@ -11,11 +11,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { BookListComponent } from '../app/book-list/book-list.component'
 import { AddBookModalComponent } from '../app/add-book-modal/add-book-modal.component'
 import { SharedService } from './services/SharedService';
+import { UserService } from './services/user.service';
+import { HttpResponse } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, MatTabsModule, MatDialogModule, FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, BookListComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, MatTabsModule, MatDialogModule, FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, BookListComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -36,33 +39,45 @@ export class AppComponent {
     }];
   value = '';
   loggedIn: boolean = localStorage.getItem('jwt') != null;
+  isAdmin: boolean = false;
+  constructor(public dialog: MatDialog, private sharedService: SharedService, private userService: UserService) { }
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService) { }
+  ngOnInit() {
+    this.userService.isAdmin().subscribe((response: HttpResponse<any>) => {
+      console.log("test");
+      console.log(response);
+      if (response.status === 200) {
+        this.isAdmin = true;
+      }
+      else {
+        this.isAdmin = false;
+      }
+    })
+  }
 
+  accountClick(): void {
 
-  openDialog(dialog: string): void {
+    this.loggedIn = localStorage.getItem('jwt') != null;
+    if (!this.loggedIn) {
+      this.openLoginDialog()
+    }
+    else {
 
-    switch (dialog) {
-      case 'login':
-        this.loggedIn = localStorage.getItem('jwt') == null;
-        if (!this.loggedIn) {
-          this.openLoginDialog('300ms', '300ms', LoginModalComponent)
-        }
-        else {
-        }
-        break;
-      case 'addBook':
-        this.openAddBookDialog();
-        break;
     }
   }
 
-  openLoginDialog(enterAnimationDuration: string, exitAnimationDuration: string, modal: any): void {
-    this.dialog.open(modal, {
+  openLoginDialog(): void {
+    const dialogRef = this.dialog.open(LoginModalComponent, {
       width: '500px',
-      enterAnimationDuration,
-      exitAnimationDuration,
+      enterAnimationDuration: "300ms",
+      exitAnimationDuration: "300ms",
     });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      console.log("closed");
+      window.location.reload();
+    });
+
   }
 
   openAddBookDialog(): void {
